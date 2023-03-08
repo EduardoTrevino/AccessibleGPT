@@ -1,0 +1,26 @@
+{
+  "name": "speakwise",
+  "version": "1.0.0",
+  "description": "Making ChatGPT accessible",
+  "main": "index.js",
+  "dependencies": {
+    "expo-cli": "^6.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduardoTrevino/AccessibleGPT.git"
+  },
+  "keywords": [
+    "chatbot"
+  ],
+  "author": "Eduardo Trevino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EduardoTrevino/AccessibleGPT/issues"
+  },
+  "homepage": "https://github.com/EduardoTrevino/AccessibleGPT#readme"
+}
