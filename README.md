@@ -76,7 +76,9 @@ Run application (dependancies may be needed)
 npx expo start
 ```
 
-App is currently linked to my expo account (Eduardo), So this does not apply to you will coordinate to figure out how to get it on the web so we can co-program
+App is currently linked to my expo account (Eduardo), So this does not apply to you (Team).
+We will coordinate to figure out how to get it on the web so we can co-program soon.
+
 1. Navigate to application
 2. Sign in
 3. Since you ran npx expo start, a dynamic local development server will appear
