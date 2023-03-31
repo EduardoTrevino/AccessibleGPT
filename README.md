@@ -49,3 +49,33 @@ audible speech to record. These timestamps will be critical for benchmarking whi
 technologies need to be improved for better user experience. Finally, we will conduct user
 testing to gather subjective feedback (from a scale of 1-5) on the applications usability,
 information retention, knowledge exposure, accessibility, and overall experience.
+
+# Prerequisites
+## Software used
+npm
+expo
+eas
+## App needed
+Expo go
+# Instructions
+Clone the repo
+```
+git clone https://github.com/EduardoTrevino/AccessibleGPT.git
+```
+
+Naviagte to application
+```
+cd mobilegpt
+```
+
+Run application (dependancies may be needed)
+```
+npx expo start
+```
+
+App is currently linked to my expo account (Eduardo), So this does not apply to you will coordinate to figure out how to get it on the web so we can co-program
+1. Navigate to application
+2. Sign in
+3. Since you ran npx expo start, a dynamic local development server will appear
+4. Click and load
+
