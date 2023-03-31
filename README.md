@@ -53,8 +53,11 @@ information retention, knowledge exposure, accessibility, and overall experience
 # Prerequisites
 ## Software used
 npm
+
 expo
+
 eas
+
 ## App needed
 Expo go
 # Instructions
