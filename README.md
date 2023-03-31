@@ -1,4 +1,7 @@
 # AccessibleGPT
+## Summary of project
+Making OpenAI's GPT user interfaceable via Natural Language.
+## Background
 At a high level there are many exciting opportunities for AI. However, the zeitgeist for the future
 of AI is to bring the cost of intelligence down to 0. There are some clear indications that this
 technology will impact what knowledge is, how we store and exchange it, how we apply
