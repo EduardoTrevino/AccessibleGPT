@@ -1,67 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { Audio } from 'expo-av';
-import * as Speech from 'expo-speech';
+import Voice from '@react-native-voice/voice';
 
 export default function App() {
-  Speech.speak('Hello, world!');
-  const [recording, setRecording] = useState(false);
   const [generatedText, setGeneratedText] = useState('');
+  const [isRecognizing, setIsRecognizing] = useState(false);
+
+  useEffect(() => {
+    Voice.onSpeechStart = () => console.log('Speech started');
+    Voice.onSpeechEnd = () => console.log('Speech ended');
+    Voice.onSpeechResults = (event) => {
+      const inputText = event.value[0];
+      console.log('Transcribed text:', inputText);
+
+      // You can now send the inputText to your backend for processing
+    };
+    Voice.onSpeechError = (error) => console.error('Speech recognition error:', error);
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
 
   const handlePress = async () => {
-    // Make a POST request to the backend API
-    const response = await fetch('http://localhost:5000/api/generate-text', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        text: 'Some input text'
-      })
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+    try {
+      // Make a POST request to the backend API
+      const response = await fetch('http://<Your-ip-address>:5000/api/generate-text', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: 'Some input text',
+        }),
+      });
 
-    // Get the generated text from the response
-    const data = await response.json();
-    setGeneratedText(data.generated_text);
+      // Get the generated text from the response
+      const data = await response.json();
+      setGeneratedText(data.generated_text);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  async function handleButtonPress() {
-    if (recording) {
-      // Stop recording
-      await Audio.stopRecordingAsync();
-      setRecording(false);
+  const handleButtonPress = async () => {
+    if (isRecognizing) {
+      await Voice.stop();
+      setIsRecognizing(false);
     } else {
-      // Start recording
-      const { status } = await Audio.requestPermissionsAsync();
-      if (status === 'granted') {
-        await Audio.setAudioModeAsync({
-          allowsRecordingIOS: true,
-          playsInSilentModeIOS: true,
-        });
-        const recording = new Audio.Recording();
-        try {
-          await recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
-          await recording.startAsync();
-          setRecording(true);
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        console.log('Permission to access microphone denied');
+      try {
+        await Voice.start('en-US');
+        setIsRecognizing(true);
+      } catch (error) {
+        console.error('Voice recognition error:', error);
       }
     }
-  }
-  
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mobile GPT</Text>
       <Button title="Generate Text" onPress={handlePress} />
-      <Button title={recording ? 'Stop Recording' : 'Start Recording'} onPress={handleButtonPress} />
+      <Button title={isRecognizing ? 'Stop Recording' : 'Start Recording'} onPress={handleButtonPress} />
       <Text style={styles.generatedText}>{generatedText}</Text>
     </View>
   );

@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route('/api/generate-text', methods=['POST'])
 def generate_text():
     # Get the text data from the request
-    text = request.form.get('text')
+    text = request.json.get('text')
 
     # Sample text for now 
     generated_text = 'This is a sample generated text'
@@ -16,5 +16,6 @@ def generate_text():
     return response
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
+
 
